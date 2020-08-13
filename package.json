@@ -95,8 +95,8 @@
     "publish": {
       "provider": "github",
       "owner": "krazyjakee",
-      "repo": "mystalia-engine",
-      "private": false
+      "repo": "mystalia-manager",
+      "private": true
     }
   },
   "repository": {
