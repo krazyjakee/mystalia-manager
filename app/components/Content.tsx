@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import { ipcRenderer } from 'electron';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -45,6 +46,22 @@ export type ContentProps = WithStyles<typeof styles>;
 
 function Content(props: ContentProps) {
   const { classes } = props;
+  const [updateMessage, setUpdateMessage] = useState('Idle.');
+
+  useEffect(() => {
+    ipcRenderer.on('update_available', () => {
+      setUpdateMessage('update_available');
+    });
+    ipcRenderer.on('update_check', () => {
+      setUpdateMessage('update_check');
+    });
+    ipcRenderer.on('update_error', (_, error) => {
+      setUpdateMessage(error);
+    });
+    ipcRenderer.on('update-downloaded', () => {
+      setUpdateMessage('update-downloaded');
+    });
+  }, []);
 
   return (
     <Paper className={classes.paper}>
@@ -90,6 +107,7 @@ function Content(props: ContentProps) {
         <Typography color="textSecondary" align="center">
           No users for this project yet
         </Typography>
+        <h1>{updateMessage}</h1>
       </div>
     </Paper>
   );
