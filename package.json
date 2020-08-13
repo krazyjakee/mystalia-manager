@@ -1,7 +1,7 @@
 {
   "name": "mystalia-manager",
   "productName": "MystaliaManager",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Tool for managing mystalia engine game entities",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -60,24 +60,15 @@
       "main.prod.js.map",
       "package.json"
     ],
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
       ]
     },
     "win": {
       "target": [
-        "nsis",
-        "msi"
+        "nsis"
       ]
     },
     "linux": {
@@ -97,7 +88,8 @@
       "owner": "krazyjakee",
       "repo": "mystalia-manager",
       "private": false,
-      "releaseType": "release"
+      "releaseType": "release",
+      "publishAutoUpdate": true
     }
   },
   "repository": {
@@ -279,7 +271,7 @@
     "connected-react-router": "^6.6.1",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.2",
-    "electron-updater": "^4.3.1",
+    "electron-updater": "^4.3.4",
     "history": "^4.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
