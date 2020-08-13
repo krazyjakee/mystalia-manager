@@ -32,14 +32,7 @@ yarn package
 
 ## Deploying
 
-To deploy a new release be sure to have an `electron-builder.yml` file in the root
-
-```yml
-appId: com.example.MystaliaManager
-publish:
-  provider: github
-  token: [GITHUB PERSONAL ACCESS TOKEN]
-```
+To deploy a new release be sure to have a github personal access token set to the `GH_TOKEN` environment variable on your local machine.
 
 ```
 yarn deploy
