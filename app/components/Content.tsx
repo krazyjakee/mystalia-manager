@@ -46,22 +46,6 @@ export type ContentProps = WithStyles<typeof styles>;
 
 function Content(props: ContentProps) {
   const { classes } = props;
-  const [updateMessage, setUpdateMessage] = useState('Idle.');
-
-  useEffect(() => {
-    ipcRenderer.on('update_available', () => {
-      setUpdateMessage('update_available');
-    });
-    ipcRenderer.on('update_check', () => {
-      setUpdateMessage('update_check');
-    });
-    ipcRenderer.on('update_error', (_, error) => {
-      setUpdateMessage(error);
-    });
-    ipcRenderer.on('update-downloaded', () => {
-      setUpdateMessage('update-downloaded');
-    });
-  }, []);
 
   return (
     <Paper className={classes.paper}>
@@ -107,7 +91,6 @@ function Content(props: ContentProps) {
         <Typography color="textSecondary" align="center">
           No users for this project yet
         </Typography>
-        <h1>{updateMessage}</h1>
       </div>
     </Paper>
   );

@@ -24,28 +24,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
 import { Omit } from '@material-ui/types';
 
-const categories = [
-  {
-    id: 'Develop',
-    children: [
-      { id: 'Authentication', icon: <PeopleIcon />, active: true },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      { id: 'ML Kit', icon: <SettingsInputComponentIcon /> },
-    ],
-  },
-  {
-    id: 'Quality',
-    children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-    ],
-  },
-];
-
 const styles = (theme: Theme) =>
   createStyles({
     categoryHeader: {
@@ -95,13 +73,31 @@ export interface NavigatorProps
 function Navigator(props: NavigatorProps) {
   const { classes, ...other } = props;
 
+  const categories = [
+    {
+      id: 'Develop',
+      children: [
+        { id: 'Items', icon: <PeopleIcon />, active: true },
+        { id: 'Loot', icon: <DnsRoundedIcon /> },
+        { id: 'Abilities', icon: <PermMediaOutlinedIcon /> },
+        { id: 'Craftables', icon: <PublicIcon /> },
+        { id: 'Shops', icon: <SettingsEthernetIcon /> },
+        { id: 'Enemies', icon: <SettingsInputComponentIcon /> },
+      ],
+    },
+    {
+      id: 'Other',
+      children: [{ id: 'Analytics', icon: <SettingsIcon /> }],
+    },
+  ];
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
-          Paperbase
+          Mystalia Manager
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -112,7 +108,7 @@ function Navigator(props: NavigatorProps) {
               primary: classes.itemPrimary,
             }}
           >
-            Project Overview
+            Game Overview
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (

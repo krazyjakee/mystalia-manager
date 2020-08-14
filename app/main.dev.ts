@@ -125,22 +125,6 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-autoUpdater.on('checking-for-update', () => {
-  if (mainWindow) mainWindow.webContents.send('update_check');
-});
-
-autoUpdater.on('error', (e) => {
-  if (mainWindow)
-    mainWindow.webContents.send(
-      `update_error`,
-      `${process.env.GH_TOKEN} ${e.message}`
-    );
-});
-
-autoUpdater.on('update-available', () => {
-  if (mainWindow) mainWindow.webContents.send('update_available');
-});
-
 autoUpdater.on('update-downloaded', () => {
   autoUpdater.quitAndInstall();
 });

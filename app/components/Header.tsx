@@ -76,18 +76,6 @@ function Header(props: HeaderProps) {
                 Go to docs
               </Link>
             </Grid>
-            <Grid item>
-              <Tooltip title="Alerts • No alerts">
-                <IconButton color="inherit">
-                  <NotificationsIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
-              </IconButton>
-            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
