@@ -40,6 +40,7 @@ export default ({ items }: Props) => {
           });
         },
       }}
+      title="Items"
       icons={tableIcons}
       columns={[
         { title: 'ID', field: 'id', type: 'numeric' },
