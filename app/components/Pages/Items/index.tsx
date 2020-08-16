@@ -4,10 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import {
   createStyles,
   Theme,
@@ -15,16 +12,16 @@ import {
   WithStyles,
 } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import { userConfigStore } from '../../../utils/ConfigStore';
 import ItemTable from './ItemTable';
 
 const styles = (theme: Theme) =>
   createStyles({
     paper: {
-      maxWidth: 936,
+      width: 'calc(100vw - 256px)',
       margin: 'auto',
-      overflow: 'hidden',
+      height: 'calc(100vh - 96px)',
+      overflow: 'auto',
     },
     searchBar: {
       borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -48,12 +45,11 @@ export type ContentProps = WithStyles<typeof styles>;
 function Content(props: ContentProps) {
   const { classes } = props;
   const [items, setItems] = useState<any[]>([]);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    console.log('refresh');
     const gameDir = userConfigStore.get('gameDir');
     if (gameDir) {
-      console.log('refresh1');
       const loadedItems = JSON.parse(
         fs.readFileSync(`${gameDir}/src/utilities/data/items.json`, 'utf8')
       );
@@ -77,32 +73,23 @@ function Content(props: ContentProps) {
             <Grid item xs>
               <TextField
                 fullWidth
-                placeholder="Search by email address, phone number, or user UID"
+                placeholder="Filter by name"
                 InputProps={{
                   disableUnderline: true,
                   className: classes.searchInput,
                 }}
+                onChange={(e) => setFilter(e.target.value)}
               />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.addUser}
-              >
-                Add user
-              </Button>
-              <Tooltip title="Reload">
-                <IconButton>
-                  <RefreshIcon className={classes.block} color="inherit" />
-                </IconButton>
-              </Tooltip>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
       <div className={classes.contentWrapper}>
-        <ItemTable items={items} />
+        <ItemTable
+          items={items.filter(({ name }) =>
+            name.toLowerCase().includes(filter.toLowerCase())
+          )}
+        />
       </div>
     </Paper>
   );

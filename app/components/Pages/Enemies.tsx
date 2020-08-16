@@ -21,9 +21,10 @@ import { ipcRenderer } from 'electron';
 const styles = (theme: Theme) =>
   createStyles({
     paper: {
-      maxWidth: 936,
+      width: 'calc(100vw - 256px)',
       margin: 'auto',
-      overflow: 'hidden',
+      height: 'calc(100vh - 96px)',
+      overflow: 'auto',
     },
     searchBar: {
       borderBottom: '1px solid rgba(0, 0, 0, 0.12)',

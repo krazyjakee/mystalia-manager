@@ -30,7 +30,7 @@ export default ({
     image.onload = () => {
       setSpriteSheetSize({ width: image.width, height: image.height });
     };
-  });
+  }, []);
 
   if (!spriteSheetSize) return null;
 
@@ -43,6 +43,7 @@ export default ({
   );
 
   const spriteStyles: CSSProperties = {
+    display: 'inline-block',
     width: newSize,
     height: newSize,
     backgroundImage: `url(${itemAssetPath()})`,
