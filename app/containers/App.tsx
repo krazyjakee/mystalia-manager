@@ -4,7 +4,6 @@ import {
   CssBaseline,
   Hidden,
   createMuiTheme,
-  createStyles,
   makeStyles,
 } from '@material-ui/core';
 import Navigator from '../components/Navigator';
@@ -167,6 +166,7 @@ export default function App(props: Props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+
         <nav className={classes.drawer}>
           <Hidden smUp implementation="js">
             <Navigator

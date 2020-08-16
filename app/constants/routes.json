@@ -1,4 +1,10 @@
 {
-  "HOME": "/",
-  "COUNTER": "/counter"
+  "ITEMS": "/items",
+  "ABILITIES": "/abilities",
+  "CRAFTABLES": "/craftables",
+  "EFFECTS": "/effects",
+  "ENEMIES": "/enemies",
+  "LOOT": "/loot",
+  "SHOP": "/shops",
+  "SETTINGS": "/settings"
 }

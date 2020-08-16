@@ -20,6 +20,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
+import { useLocation } from 'react-router-dom';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -52,6 +53,10 @@ interface HeaderProps extends WithStyles<typeof styles> {
 
 function Header(props: HeaderProps) {
   const { classes, onDrawerToggle } = props;
+  const location = useLocation();
+  const title = `${location.pathname[1].toUpperCase()}${location.pathname.slice(
+    2
+  )}`;
 
   return (
     <>
@@ -73,7 +78,12 @@ function Header(props: HeaderProps) {
             <Grid item xs />
             <Grid item>
               <Link className={classes.link} href="#" variant="body2">
-                Go to docs
+                Documentation
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link className={classes.link} href="#" variant="body2">
+                Github
               </Link>
             </Grid>
           </Grid>
@@ -90,25 +100,8 @@ function Header(props: HeaderProps) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+                {title}
               </Typography>
-            </Grid>
-            <Grid item>
-              <Button
-                className={classes.button}
-                variant="outlined"
-                color="inherit"
-                size="small"
-              >
-                Web setup
-              </Button>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Help">
-                <IconButton color="inherit">
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
             </Grid>
           </Grid>
         </Toolbar>
@@ -120,12 +113,18 @@ function Header(props: HeaderProps) {
         position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab textColor="inherit" label="Users" />
-          <Tab textColor="inherit" label="Sign-in method" />
-          <Tab textColor="inherit" label="Templates" />
-          <Tab textColor="inherit" label="Usage" />
-        </Tabs>
+        {/* <Tabs value={0} textColor="inherit">
+          {tabs.map((tabName) => {
+            return (
+              <Tab
+                key={tabName}
+                textColor="inherit"
+                label={tabName}
+                onClick={() => tabCallback(tabName)}
+              />
+            );
+          })}
+        </Tabs> */}
       </AppBar>
     </>
   );

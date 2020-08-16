@@ -6,6 +6,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
+import { useLocation } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -19,10 +20,10 @@ import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
 import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
-import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
 import { Omit } from '@material-ui/types';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -72,22 +73,58 @@ export interface NavigatorProps
 
 function Navigator(props: NavigatorProps) {
   const { classes, ...other } = props;
+  const location = useLocation();
 
   const categories = [
     {
       id: 'Develop',
       children: [
-        { id: 'Items', icon: <PeopleIcon />, active: true },
-        { id: 'Loot', icon: <DnsRoundedIcon /> },
-        { id: 'Abilities', icon: <PermMediaOutlinedIcon /> },
-        { id: 'Craftables', icon: <PublicIcon /> },
-        { id: 'Shops', icon: <SettingsEthernetIcon /> },
-        { id: 'Enemies', icon: <SettingsInputComponentIcon /> },
+        {
+          id: 'Items',
+          icon: <PeopleIcon />,
+          active: location.pathname === 'items',
+        },
+        {
+          id: 'Effects',
+          icon: <PhonelinkSetupIcon />,
+          active: location.pathname === 'effects',
+        },
+        {
+          id: 'Loot',
+          icon: <DnsRoundedIcon />,
+          active: location.pathname === 'loot',
+        },
+        {
+          id: 'Abilities',
+          icon: <PermMediaOutlinedIcon />,
+          active: location.pathname === 'abilities',
+        },
+        {
+          id: 'Craftables',
+          icon: <PublicIcon />,
+          active: location.pathname === 'craftables',
+        },
+        {
+          id: 'Shops',
+          icon: <SettingsEthernetIcon />,
+          active: location.pathname === 'shops',
+        },
+        {
+          id: 'Enemies',
+          icon: <SettingsInputComponentIcon />,
+          active: location.pathname === 'enemies',
+        },
       ],
     },
     {
       id: 'Other',
-      children: [{ id: 'Analytics', icon: <SettingsIcon /> }],
+      children: [
+        {
+          id: 'Settings',
+          icon: <SettingsIcon />,
+          active: location.pathname === 'settings',
+        },
+      ],
     },
   ];
 
@@ -123,20 +160,26 @@ function Navigator(props: NavigatorProps) {
               </ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, active }) => (
-              <ListItem
-                key={childId}
-                button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+              <Link to={childId.toLowerCase()} key={childId}>
+                <ListItem
+                  button
+                  className={clsx(
+                    classes.item,
+                    active && classes.itemActiveItem
+                  )}
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
+                  <ListItemIcon className={classes.itemIcon}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              </Link>
             ))}
             <Divider className={classes.divider} />
           </React.Fragment>
