@@ -45,7 +45,6 @@ export type ContentProps = WithStyles<typeof styles>;
 function Content(props: ContentProps) {
   const { classes } = props;
   const [items, setItems] = useState<any[]>([]);
-  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const gameDir = userConfigStore.get('gameDir');
@@ -55,41 +54,12 @@ function Content(props: ContentProps) {
       );
       setItems(loadedItems);
     }
-  }, []);
+  }, [classes]);
 
   return (
     <Paper className={classes.paper}>
-      <AppBar
-        className={classes.searchBar}
-        position="static"
-        color="default"
-        elevation={0}
-      >
-        <Toolbar>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item>
-              <SearchIcon className={classes.block} color="inherit" />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                fullWidth
-                placeholder="Filter by name"
-                InputProps={{
-                  disableUnderline: true,
-                  className: classes.searchInput,
-                }}
-                onChange={(e) => setFilter(e.target.value)}
-              />
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
       <div className={classes.contentWrapper}>
-        <ItemTable
-          items={items.filter(({ name }) =>
-            name.toLowerCase().includes(filter.toLowerCase())
-          )}
-        />
+        <ItemTable items={items.filter(({ name }) => name)} />
       </div>
     </Paper>
   );
