@@ -47,6 +47,8 @@ export type ContentProps = WithStyles<typeof styles>;
 function Content(props: ContentProps) {
   const { classes } = props;
 
+  console.log('render');
+
   return (
     <Paper className={classes.paper}>
       <AppBar

@@ -14,9 +14,10 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
+import { userConfigStore } from '../../utils/ConfigStore';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -47,50 +48,48 @@ export type ContentProps = WithStyles<typeof styles>;
 function Content(props: ContentProps) {
   const { classes } = props;
 
+  const [gameDir, setGameDir] = useState(userConfigStore.get('gameDir'));
+
   return (
     <Paper className={classes.paper}>
-      <AppBar
-        className={classes.searchBar}
-        position="static"
-        color="default"
-        elevation={0}
-      >
-        <Toolbar>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item>
-              <SearchIcon className={classes.block} color="inherit" />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                fullWidth
-                placeholder="Search by email address, phone number, or user UID"
-                InputProps={{
-                  disableUnderline: true,
-                  className: classes.searchInput,
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.addUser}
-              >
-                Add user
-              </Button>
-              <Tooltip title="Reload">
-                <IconButton>
-                  <RefreshIcon className={classes.block} color="inherit" />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
       <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-          No users for this project yet
-        </Typography>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            <FolderOpenIcon className={classes.block} color="inherit" />
+          </Grid>
+          <Grid item>
+            <Typography>Game Source Folder</Typography>
+          </Grid>
+          <Grid item xs>
+            <TextField
+              fullWidth
+              placeholder=""
+              InputProps={{
+                disableUnderline: true,
+                className: classes.searchInput,
+              }}
+              value={gameDir}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.addUser}
+              onClick={() => {
+                const pathArray = remote.dialog.showOpenDialogSync({
+                  properties: ['openDirectory'],
+                });
+                if (!pathArray) return;
+
+                setGameDir(pathArray[0]);
+                userConfigStore.set('gameDir', pathArray[0]);
+              }}
+            >
+              Select Folder
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </Paper>
   );

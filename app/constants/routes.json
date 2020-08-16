@@ -1,4 +1,5 @@
 {
+  "ROOT": "/",
   "ITEMS": "/items",
   "ABILITIES": "/abilities",
   "CRAFTABLES": "/craftables",

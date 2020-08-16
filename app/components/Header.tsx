@@ -54,9 +54,10 @@ interface HeaderProps extends WithStyles<typeof styles> {
 function Header(props: HeaderProps) {
   const { classes, onDrawerToggle } = props;
   const location = useLocation();
-  const title = `${location.pathname[1].toUpperCase()}${location.pathname.slice(
-    2
-  )}`;
+
+  const title = `${
+    location.pathname[1] ? location.pathname[1].toUpperCase() : 'Items'
+  }${location.pathname.slice(2)}`;
 
   return (
     <>

@@ -15,6 +15,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import { userConfigStore } from './utils/ConfigStore';
 
 export default class AppUpdater {
   constructor() {
@@ -70,6 +71,13 @@ const createWindow = async () => {
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
           },
+  });
+
+  mainWindow.on('resize', () => {
+    if (!mainWindow) return;
+
+    let { width, height } = mainWindow.getBounds();
+    userConfigStore.set('windowBounds', { width, height });
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);

@@ -16,14 +16,15 @@ export default function Routes() {
   return (
     <App>
       <Switch>
-        <Route path={routes.ITEMS} component={Items} />
-        <Route path={routes.ABILITIES} component={Abilities} />
-        <Route path={routes.CRAFTABLES} component={Craftables} />
-        <Route path={routes.EFFECTS} component={Effects} />
-        <Route path={routes.ENEMIES} component={Enemies} />
-        <Route path={routes.LOOT} component={Loot} />
-        <Route path={routes.SHOP} component={Shops} />
-        <Route path={routes.SETTINGS} component={Settings} />
+        <Route exact path={routes.ROOT} component={Items} />
+        <Route exact path={routes.ITEMS} component={Items} />
+        <Route exact path={routes.ABILITIES} component={Abilities} />
+        <Route exact path={routes.CRAFTABLES} component={Craftables} />
+        <Route exact path={routes.EFFECTS} component={Effects} />
+        <Route exact path={routes.ENEMIES} component={Enemies} />
+        <Route exact path={routes.LOOT} component={Loot} />
+        <Route exact path={routes.SHOP} component={Shops} />
+        <Route exact path={routes.SETTINGS} component={Settings} />
       </Switch>
     </App>
   );
