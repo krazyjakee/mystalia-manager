@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import * as fs from 'fs';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,8 @@ import {
 } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { ipcRenderer } from 'electron';
+import { userConfigStore } from '../../../utils/ConfigStore';
+import ItemTable from './ItemTable';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -46,6 +47,19 @@ export type ContentProps = WithStyles<typeof styles>;
 
 function Content(props: ContentProps) {
   const { classes } = props;
+  const [items, setItems] = useState<any[]>([]);
+
+  useEffect(() => {
+    console.log('refresh');
+    const gameDir = userConfigStore.get('gameDir');
+    if (gameDir) {
+      console.log('refresh1');
+      const loadedItems = JSON.parse(
+        fs.readFileSync(`${gameDir}/src/utilities/data/items.json`, 'utf8')
+      );
+      setItems(loadedItems);
+    }
+  }, []);
 
   return (
     <Paper className={classes.paper}>
@@ -88,9 +102,7 @@ function Content(props: ContentProps) {
         </Toolbar>
       </AppBar>
       <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-          No item for this project yet
-        </Typography>
+        <ItemTable items={items} />
       </div>
     </Paper>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
-import Items from './components/pages/Items';
+import Items from './components/Pages/Items/index';
 import Abilities from './components/Pages/Abilities';
 import Craftables from './components/Pages/Craftables';
 import Effects from './components/Pages/Effects';
